@@ -27,7 +27,7 @@ export default {
           console.log("User create error", error.response.data);
           this.errors.push(error.response.data["message"]);
           this.errors = error.response.data.errors;
-          this.helperMessage = this.errors.sort()[0];
+          this.helperMessage = this.errors[0];
           console.log(this.errors[0]);
         });
     },
