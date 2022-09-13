@@ -1,5 +1,4 @@
 <template>
-  <!-- <router-link to="/about"><li>About</li></router-link> -->
 
   <nav style="position: fixed; z-index: 10001">
     <div style="width: 100%; float: right; position: fixed">
@@ -52,7 +51,6 @@
 
     <button class="burger-btn" v-on:click="moveSidebar()">☰</button>
 
-    <!-- Switch between login and display logged in user -->
   </nav>
 
   <router-view />

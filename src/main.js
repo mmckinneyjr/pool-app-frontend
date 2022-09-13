@@ -1,10 +1,13 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
-import axios from "axios";
 
+// import axios from "axios";
+// process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://capstone-pool-app.herokuapp.com/";
+
+import axios from "axios";
 axios.defaults.baseURL =
-  process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://capstone-pool-app.herokuapp.com/";
+  process.env.NODE_ENV === "https://capstone-pool-app.herokuapp.com/" ? "http://localhost:3000" : "/";
 
 createApp(App).use(router).mount("#app");
 
