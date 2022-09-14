@@ -3,44 +3,72 @@ export default {
   data: function () {
     return {
       skillLevels: [0, 14, 19, 25, 31, 38, 46, 55, 65, 75],
+      // player [points, turn, skill level, Name]
       player1: [0, true, 0, ""],
       player2: [0, false, 0, ""],
       deadBalls: 0,
       innings: 0,
+      winnerMsg: "",
     };
   },
   created: function () {},
   methods: {
     switchPlayers: function () {
-      if (this.player1[1] === true) {
-        this.player1[1] = false;
-        this.player2[1] = true;
-        document.getElementById("scoreP1").className = "flex-item2";
-        document.getElementById("scoreP2").className = "flex-item";
-      } else if (this.player2[1] === true) {
-        this.player1[1] = true;
-        this.player2[1] = false;
-        document.getElementById("scoreP1").className = "flex-item";
-        document.getElementById("scoreP2").className = "flex-item2";
-        this.innings++;
+      if (
+        this.skillLevels[this.player1[2]] - this.player1[0] > 1 &&
+        this.skillLevels[this.player2[2]] - this.player2[0] > 1
+      ) {
+        if (this.player1[1] === true) {
+          this.player1[1] = false;
+          this.player2[1] = true;
+          document.getElementById("scoreP1").className = "flex-item2";
+          document.getElementById("scoreP2").className = "flex-item";
+        } else if (this.player2[1] === true) {
+          this.player1[1] = true;
+          this.player2[1] = false;
+          document.getElementById("scoreP1").className = "flex-item";
+          document.getElementById("scoreP2").className = "flex-item2";
+          this.innings++;
+        }
       }
     },
     addPoints: function () {
+      //Player 1 added points
+      let player1Left = this.skillLevels[this.player1[2]] - this.player1[0];
       if (this.player1[1] === true) {
-        this.player1[0]++;
-      } else if (this.player2[1] === true) {
-        this.player2[0]++;
+        if (player1Left > 0) {
+          this.player1[0]++;
+        }
+        if (player1Left === 1) {
+          this.winnerMsg = this.player1[3] + " Wins!";
+        }
+      }
+      //Player 2 added points
+      let player2Left = this.skillLevels[this.player2[2]] - this.player2[0];
+      if (this.player2[1] === true) {
+        if (player2Left > 0) {
+          this.player2[0]++;
+        }
+        if (player2Left === 1) {
+          this.winnerMsg = this.player2[3] + " Wins!";
+        }
       }
     },
     addDeadBalls: function () {
-      this.deadBalls++;
+      if (
+        this.skillLevels[this.player1[2]] - this.player1[0] > 1 &&
+        this.skillLevels[this.player2[2]] - this.player2[0] > 1
+      ) {
+        this.deadBalls++;
+      }
     },
 
     newMatch: function () {
-      // this.player1 = [0, true, 0, ""];
-      // this.player2 = [0, false, 0, ""];
-      // this.deadBalls = 0;
-      // this.innings = 0;
+      this.player1 = [0, true, 0, ""];
+      this.player2 = [0, false, 0, ""];
+      this.deadBalls = 0;
+      this.innings = 0;
+      this.winnerMsg = "";
 
       const modal = document.querySelector("#modal");
       const overlay = document.getElementById("overlay");
@@ -135,6 +163,19 @@ export default {
   <div id="overlay"></div>
 
   <div class="nineballscorer">
+    <div
+      class="winner-sign"
+      style="
+        margin: 150px 0px 0px 0px;
+        text-align: center;
+        width: 100%;
+        font-weight: bold;
+        font-size: 45px;
+        position: absolute;
+      "
+    >
+      {{ winnerMsg }}
+    </div>
     <div style="margin: 120px 0px 0px -50px; text-align: right; width: 100%; position: absolute">
       <button data-modal-target="#modal" class="new-match-btn" v-on:click="newMatch()">New Match</button>
     </div>

@@ -77,7 +77,7 @@ export default {
         this.getTournament();
       });
 
-      alert("Users: ");
+      // alert("Users: ");
     },
   },
 };

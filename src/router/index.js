@@ -7,6 +7,7 @@ import Login from "../views/LoginView.vue";
 import Logout from "../views/LogOut.vue";
 import TournamentShow from "../views/TournamentShow.vue";
 import TournamentsAll from "../views/TournamentsAll.vue";
+import MyAccount from "../views/MyAccount.vue";
 
 const routes = [
   {
@@ -48,6 +49,11 @@ const routes = [
     path: "/tournaments",
     name: "tournaments",
     component: TournamentsAll,
+  },
+  {
+    path: "/myaccount",
+    name: "my-account",
+    component: MyAccount,
   },
 ];
 
