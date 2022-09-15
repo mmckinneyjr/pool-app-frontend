@@ -32,28 +32,22 @@ export default {
         }
       }
     },
+
     addPoints: function () {
-      //Player 1 added points
+      //Player 1 add points
       let player1Left = this.skillLevels[this.player1[2]] - this.player1[0];
       if (this.player1[1] === true) {
-        if (player1Left > 0) {
-          this.player1[0]++;
-        }
-        if (player1Left === 1) {
-          this.winnerMsg = this.player1[3] + " Wins!";
-        }
+        player1Left > 0 && this.player1[0]++;
+        player1Left === 1 && (this.winnerMsg = this.player1[3] + " Wins!");
       }
-      //Player 2 added points
+      //Player 2 add points
       let player2Left = this.skillLevels[this.player2[2]] - this.player2[0];
       if (this.player2[1] === true) {
-        if (player2Left > 0) {
-          this.player2[0]++;
-        }
-        if (player2Left === 1) {
-          this.winnerMsg = this.player2[3] + " Wins!";
-        }
+        player2Left > 0 && this.player2[0]++;
+        player2Left === 1 && (this.winnerMsg = this.player2[3] + " Wins!");
       }
     },
+
     addDeadBalls: function () {
       if (
         this.skillLevels[this.player1[2]] - this.player1[0] > 1 &&
@@ -77,15 +71,10 @@ export default {
     },
 
     okModalBtn: function () {
-      if (this.player1[3] === "") {
-        this.player1[3] = "Player 1";
-      }
-      if (this.player2[3] === "") {
-        this.player2[3] = "Player 2";
-      }
+      this.player1[3] === "" && (this.player1[3] = "Player 1");
+      this.player2[3] === "" && (this.player2[3] = "Player 2");
 
       let player1Skill1 = document.getElementById("skillLevelSelect1").selectedIndex;
-      console.log(player1Skill1);
       this.player1[2] = player1Skill1 + 1;
 
       let player2Skill2 = document.getElementById("skillLevelSelect2").selectedIndex;
@@ -96,6 +85,7 @@ export default {
       modal.classList.remove("active");
       overlay.classList.remove("active");
     },
+
     cancelModalBtn: function () {
       const modal = document.querySelector("#modal");
       const overlay = document.getElementById("overlay");
@@ -121,16 +111,11 @@ export default {
           v-model="player1[3]"
           style="margin-right: 5px"
         />
+
         <select size="1" class="modal-label" id="skillLevelSelect1" style="margin-left: 5px">
-          <option>Skill Level 1: {{ skillLevels[1] + " balls" }}</option>
-          <option>Skill Level 2: {{ skillLevels[2] + " balls" }}</option>
-          <option>Skill Level 3: {{ skillLevels[3] + " balls" }}</option>
-          <option>Skill Level 4: {{ skillLevels[4] + " balls" }}</option>
-          <option>Skill Level 5: {{ skillLevels[5] + " balls" }}</option>
-          <option>Skill Level 6: {{ skillLevels[6] + " balls" }}</option>
-          <option>Skill Level 7: {{ skillLevels[7] + " balls" }}</option>
-          <option>Skill Level 8: {{ skillLevels[8] + " balls" }}</option>
-          <option>Skill Level 9: {{ skillLevels[9] + " balls" }}</option>
+          <template v-for="(player, index) in 9" :key="index">
+            <option>Skill Level {{ index + 1 }}: {{ skillLevels[index + 1] + " balls" }}</option>
+          </template>
         </select>
       </div>
       <div class="modal-lable-div">
@@ -142,15 +127,9 @@ export default {
           style="margin-right: 5px"
         />
         <select size="1" class="modal-label" id="skillLevelSelect2" style="margin-left: 5px">
-          <option>Skill Level 1: {{ skillLevels[1] + " balls" }}</option>
-          <option>Skill Level 2: {{ skillLevels[2] + " balls" }}</option>
-          <option>Skill Level 3: {{ skillLevels[3] + " balls" }}</option>
-          <option>Skill Level 4: {{ skillLevels[4] + " balls" }}</option>
-          <option>Skill Level 5: {{ skillLevels[5] + " balls" }}</option>
-          <option>Skill Level 6: {{ skillLevels[6] + " balls" }}</option>
-          <option>Skill Level 7: {{ skillLevels[7] + " balls" }}</option>
-          <option>Skill Level 8: {{ skillLevels[8] + " balls" }}</option>
-          <option>Skill Level 9: {{ skillLevels[9] + " balls" }}</option>
+          <template v-for="(player, index) in 9" :key="index">
+            <option>Skill Level {{ index + 1 }}: {{ skillLevels[index + 1] + " balls" }}</option>
+          </template>
         </select>
       </div>
       <br />
@@ -179,7 +158,6 @@ export default {
     <div style="margin: 120px 0px 0px -50px; text-align: right; width: 100%; position: absolute">
       <button data-modal-target="#modal" class="new-match-btn" v-on:click="newMatch()">New Match</button>
     </div>
-
     <div id="flex-container">
       <!--  -->
       <div class="">
@@ -190,12 +168,11 @@ export default {
           <div class="ballsLeft"></div>
         </div>
       </div>
+      <!--  -->
       <div class="flex-item-middle">
         <br />
         <div>{{ "Total Innings: " + innings }}</div>
-
         <div>{{ "Dead Balls: " + deadBalls }}</div>
-
         <div>{{ "Total Ball Count: " + (deadBalls + player1[0] + player2[0]) }}</div>
       </div>
       <!--  -->
@@ -210,7 +187,6 @@ export default {
     </div>
     <!-- --------- -->
     <div id="flex-container-btns">
-      <!--  -->
       <div class="flex-item-btns">
         {{ player1[3] }}
         <br />
@@ -383,8 +359,6 @@ export default {
   width: 200px;
   height: 200px;
   padding: 0px 0px 0px 0px;
-  /* background: white; */
-
   font-weight: bold;
   text-align: center;
 }
